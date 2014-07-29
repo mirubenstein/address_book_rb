@@ -46,8 +46,33 @@ describe Contact do
   it "returns array of phone numbers as formatted text" do
     john_doe = Contact.new("John Doe")
     john_doe_phone = Phone.new(5552424)
+    jane_doe_phone = Phone.new(3602424)
     john_doe.save_phone(john_doe_phone)
-    expect(john_doe.list_phone_numbers).to eq "5552424\n"
+    john_doe.save_phone(jane_doe_phone)
+    expect(john_doe.list_phone_numbers).to eq "5552424\n3602424\n"
+  end
+
+  it "save email address to contact" do
+    john_doe = Contact.new("John Doe")
+    john_doe_email = Email.new("john.doe@gmail.com")
+    john_doe.save_email(john_doe_email)
+    expect(john_doe.email).to eq [john_doe_email]
+  end
+
+  it "returns array of email addresses as formatted text" do
+    john_doe = Contact.new("John Doe")
+    john_doe_email = Email.new("john.doe@gmail.com")
+    john_doe_work_email = Email.new("john.doe@work.com")
+    john_doe.save_email(john_doe_email)
+    john_doe.save_email(john_doe_work_email)
+    expect(john_doe.list_email_addresses).to eq "john.doe@gmail.com\njohn.doe@work.com\n"
+  end
+
+  it 'saves address to contact' do
+    john_doe = Contact.new("John Doe")
+    john_doe_address = Address.new("1234 Easy Street", "Portland", "OR", 97201)
+    john_doe.save_address(john_doe_address)
+    expect(john_doe.address).to eq [john_doe_address]
   end
 
 end
