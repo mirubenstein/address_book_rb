@@ -1,4 +1,5 @@
 class Contact
+  attr_accessor(:names, :phone_numbers, :emails, :addresses)
   @@all_contacts = []
 
   def Contact.all
@@ -49,24 +50,12 @@ class Contact
     @addresses << address_obj
   end
 
-  # def list_addresses
-  #   current_list = ""
-  # end
-
-  def name
-    @names
-  end
-
-  def phone_number
-    @phone_numbers
-  end
-
-  def email
-    @emails
-  end
-
-  def address
-    @addresses
+  def list_addresses
+    current_list = ""
+    @addresses.each do |address|
+      current_list+= "#{address.address}\n"
+    end
+    current_list
   end
 
   def edit_name(new_name)
@@ -74,58 +63,33 @@ class Contact
   end
 
   def delete_contact(name)
-    @@all_contacts.delete_if {|contact| contact.name == name}
+    @@all_contacts.delete_if {|contact| contact.names == name}
   end
 
 end
 
 class Phone
+  attr_accessor(:phone_number)
   def initialize(number)
-    @phone_numbers = number
-  end
-
-  def phone_number
-    @phone_numbers
+    @phone_number = number
   end
 end
 
 class Email
+  attr_accessor(:email)
   def initialize(email)
-    @emails = email
-  end
-
-  def email
-    @emails
+    @email = email
   end
 end
 
 class Address
+  attr_accessor(:street, :city, :state, :zip, :address)
   def initialize(street, city, state, zip)
     @street = street
     @city = city
     @state = state
     @zip = zip
-    @addresses = "#{street} #{city} #{state} #{zip}"
-  end
-
-  def street
-    @street
-  end
-
-  def city
-    @city
-  end
-
-  def state
-    @state
-  end
-
-  def zip
-    @zip
-  end
-
-  def address
-    @addresses
+    @address = "#{street} #{city} #{state} #{zip}"
   end
 end
 

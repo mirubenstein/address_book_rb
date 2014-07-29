@@ -8,7 +8,7 @@ describe Contact do
 
   it "is initialized with a name, phone number, email, and mailing address and saves it to Contact Class" do
     john_doe = Contact.new("John Doe")
-    expect(john_doe.name).to eq "John Doe"
+    expect(john_doe.names).to eq "John Doe"
     expect(Contact.all).to eq [john_doe]
   end
 
@@ -26,7 +26,7 @@ describe Contact do
   it 'edits contact name' do
     john_doe = Contact.new("John Doe")
     john_doe.edit_name("Jane Doe")
-    expect(john_doe.name).to eq "Jane Doe"
+    expect(john_doe.names).to eq "Jane Doe"
   end
 
   it "deletes the contact" do
@@ -40,7 +40,7 @@ describe Contact do
     john_doe = Contact.new("John Doe")
     john_doe_phone = Phone.new(5031234)
     john_doe.save_phone(john_doe_phone)
-    expect(john_doe.phone_number).to eq [john_doe_phone]
+    expect(john_doe.phone_numbers).to eq [john_doe_phone]
   end
 
   it "returns array of phone numbers as formatted text" do
@@ -56,7 +56,7 @@ describe Contact do
     john_doe = Contact.new("John Doe")
     john_doe_email = Email.new("john.doe@gmail.com")
     john_doe.save_email(john_doe_email)
-    expect(john_doe.email).to eq [john_doe_email]
+    expect(john_doe.emails).to eq [john_doe_email]
   end
 
   it "returns array of email addresses as formatted text" do
@@ -72,7 +72,16 @@ describe Contact do
     john_doe = Contact.new("John Doe")
     john_doe_address = Address.new("1234 Easy Street", "Portland", "OR", 97201)
     john_doe.save_address(john_doe_address)
-    expect(john_doe.address).to eq [john_doe_address]
+    expect(john_doe.addresses).to eq [john_doe_address]
+  end
+
+  it "returns array of addresses as formatted text" do
+    john_doe = Contact.new("John Doe")
+    john_doe_address = Address.new("1234 Easy Street", "Portland", "OR", 97201)
+    john_doe.save_address(john_doe_address)
+    john_doe_address2 = Address.new("1235 Easy Street", "Portland", "OR", 97202)
+    john_doe.save_address(john_doe_address2)
+    expect(john_doe.list_addresses).to eq "1234 Easy Street Portland OR 97201\n1235 Easy Street Portland OR 97202\n"
   end
 
 end
