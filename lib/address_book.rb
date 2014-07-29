@@ -1,5 +1,5 @@
 class Contact
-  attr_accessor(:names, :phone_numbers, :emails, :addresses)
+  attr_accessor(:name, :phone_numbers, :emails, :addresses)
   @@all_contacts = []
 
   def Contact.all
@@ -10,8 +10,26 @@ class Contact
     @@all_contacts = []
   end
 
+  def Contact.list_contacts
+    current_list = ""
+    @@all_contacts.each do |contact|
+      current_list+= "#{contact.name}\n"
+    end
+    current_list
+  end
+
+  def Contact.contact_search(contact_name)
+    current_contact = Object.new
+    @@all_contacts.each do |contact|
+      if contact.name == contact_name
+        current_contact = contact
+      end
+    end
+    current_contact
+  end
+
   def initialize(name)
-    @names = name
+    @name = name
     @phone_numbers = []
     @emails = []
     @addresses = []
@@ -59,11 +77,11 @@ class Contact
   end
 
   def edit_name(new_name)
-    @names = new_name
+    @name = new_name
   end
 
-  def delete_contact(name)
-    @@all_contacts.delete_if {|contact| contact.names == name}
+  def contact_delete
+    @@all_contacts.delete(self)
   end
 
 end

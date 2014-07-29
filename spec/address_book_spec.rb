@@ -8,7 +8,7 @@ describe Contact do
 
   it "is initialized with a name, phone number, email, and mailing address and saves it to Contact Class" do
     john_doe = Contact.new("John Doe")
-    expect(john_doe.names).to eq "John Doe"
+    expect(john_doe.name).to eq "John Doe"
     expect(Contact.all).to eq [john_doe]
   end
 
@@ -23,16 +23,29 @@ describe Contact do
     expect(Contact.all).to eq []
   end
 
+  it "outputs formmated array" do
+    Contact.clear
+    Contact.new("John Doe")
+    expect(Contact.list_contacts).to eq "John Doe\n"
+  end
+
+  it 'returns instance contact based on name' do
+    Contact.clear
+    john_doe = Contact.new("John Doe")
+    jane_doe = Contact.new("Jane Doe")
+    expect(Contact.contact_search("Jane Doe")).to eq(jane_doe)
+  end
+
   it 'edits contact name' do
     john_doe = Contact.new("John Doe")
     john_doe.edit_name("Jane Doe")
-    expect(john_doe.names).to eq "Jane Doe"
+    expect(john_doe.name).to eq "Jane Doe"
   end
 
   it "deletes the contact" do
     Contact.clear
     john_doe = Contact.new("John Doe")
-    john_doe.delete_contact("John Doe")
+    john_doe.contact_delete
     expect(Contact.all).to eq []
   end
 
